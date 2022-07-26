@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="index.css" type="text/css" />
 </head>
 <body>
+    <script type="text/javascript">
+        window.onload = function(){
+            document.getElementById("mybtn").onclick = function(){ 
+                document.getElementById("mytext").value = "我爱你，GLL";
+            }
+        }
+    </script>
     <div class="header">
         <h1>猫咪的成长历程</h1>
         <p>岁岁的猫生</p>
@@ -49,7 +56,8 @@
       </div>
        
       <div class="footer">
-        <h2>不知道说什么</h2>
+        <input type="text" value="点击旁边的按钮有惊喜" id="mytext">
+        <input type="button" value="点我" id="mybtn">
       </div>
 </body>
 </html>
