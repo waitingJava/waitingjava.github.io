@@ -4,60 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ann的网站</title>
-    <link rel="stylesheet" href="index.css" type="text/css" />
+    <title>倒计时</title>
+  <style type="text/css">
+	div{
+		font-size: 30px;
+		color:blue;
+	}
+</style>
 </head>
 <body>
-    <script type="text/javascript">
-        window.onload = function(){
-            document.getElementById("mybtn").onclick = function(){ 
-                document.getElementById("mytext").value = "我爱你，GLL";
-            }
+  <div id="title">今天是<br></div>
+  <div id="showtime"></div>
+    <script>
+    var nowtime = new Date(), 
+    year = nowtime.getFullYear(), 
+    months = nowtime.getMonth()+1, 
+    day = nowtime.getDate(),
+    days =nowtime.getDay(),
+    time = " " + year + " 年 " + months + " 月 " + day+" 日星期 "+days+" "
+    var showtime = function () {
+        var nowtimes = new Date(),
+        endtime = new Date(`${year}/${months}/${day} 20:00:00`);  //定义下班时间
+        var lefttime = endtime.getTime() - nowtimes.getTime()
+        if(lefttime<0){
+          return "00:00:00"
         }
+        if(days>5){
+          return "今日休假"
+        }
+        var leftd = Math.floor(lefttime/(1000*60*60*24)),  //计算天数
+            lefth = Math.floor(lefttime/(1000*60*60)%24)>9?Math.floor(lefttime/(1000*60*60)%24):"0"+Math.floor(lefttime/(1000*60*60)%24),  //计算小时数
+            leftm = Math.floor(lefttime/(1000*60)%60)>9?Math.floor(lefttime/(1000*60)%60):"0"+Math.floor(lefttime/(1000*60)%60),  //计算分钟数
+            lefts = Math.floor(lefttime/1000%60)>9?Math.floor(lefttime/1000%60):"0"+Math.floor(lefttime/1000%60);  //计算秒数
+        return lefth + " 小时 " + leftm + " 分钟 " + lefts+ " 秒 ";//返回倒计时的字符串
+    }
+    var div = document.getElementById("showtime");
+    var title= document.getElementById("title")
+    var endTime=setInterval (function () {
+        div.innerHTML = showtime();
+        if(showtime()=="00:00:00"||showtime()=="今日休假"){
+          clearInterval(endTime)
+        }
+    }, 1000);  //反复执行函数本身
+    title.innerHTML = `今天是${time}距离下班还剩`;;
     </script>
-    <div class="header">
-        <h1>猫咪的成长历程</h1>
-        <p>岁岁的猫生</p>
-      </div>
-       
-      <div class="navbar">
-        <a href="https://www.baidu.com">百度</a>
-        <a href="https://cn.bing.com/?mkt=zh-CN">必应</a>
-        <a href="#">此链接无效</a>
-        <a href="#" class="right">登录</a>
-        <a href="#" class="right">注册</a>
-      </div>
-       
-      <div class="row">
-        <div class="side">
-            <h2>关于岁岁</h2>
-            <h5>照片:</h5>
-            <div class="fakeimg"><img src="image/001.jpg" width="100%"></div>
-            <p>小时候憨憨的..</p>
-            <h3>岁岁的更多内容</h3>
-            <p>看我一脚把你踢飞</p>
-            <div class="fakeimg"><img src="image/003.jpg" width="100%"></div><br>
-            <div class="fakeimg"><img src="image/004.jpg" width="100%"></div><br>
-            <div class="fakeimg"><img src="image/005.jpg" width="100%"></div>
-        </div>
-        <div class="main">
-            <h2>调皮的小岁岁</h2>
-            <h5>爱答不理</h5>
-            <div class="fakeimg"><img src="image/006.jpg" width="100%"></div>
-            <p>它的生日是2021年的6月10号..</p>
-            <p>最大的爱好是吃饭睡觉 巡视领地 跑到客厅玩耍！！！</p>
-            <br>
-            <h2>调皮的它也有可爱的时候</h2>
-            <h5>给撸给亲给抱抱</h5>
-            <div class="fakeimg"><img src="image/007.jpg" width="100%"></div>
-            <p>到这里就结束了吗..</p>
-            <p>还没有！！！</p>
-        </div>
-      </div>
-       
-      <div class="footer">
-        <input type="text" value="点击旁边的按钮有惊喜" id="mytext">
-        <input type="button" value="点我" id="mybtn">
-      </div>
 </body>
 </html>
